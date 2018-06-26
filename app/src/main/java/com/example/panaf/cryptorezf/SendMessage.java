@@ -38,7 +38,7 @@ import javax.crypto.NoSuchPaddingException;
 
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 
-public class Main2Activity extends AppCompatActivity {
+public class SendMessage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

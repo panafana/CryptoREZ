@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -66,7 +65,7 @@ public class KeyList extends ListActivity {
         //String selectedItem = (String) getListAdapter().getItem(position);
 
         //text.setText("You clicked " + selectedItem + " at position " + position);
-        Intent i = new Intent(getApplicationContext(), Main2Activity.class);
+        Intent i = new Intent(getApplicationContext(), SendMessage.class);
         i.putExtra("publicK", SP.getString(selectedItem,""));
         i.putExtra("contact", selectedItem);
         //i.putExtra("MyPrivKey", privKey);
