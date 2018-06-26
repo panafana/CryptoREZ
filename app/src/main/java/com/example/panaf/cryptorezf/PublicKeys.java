@@ -64,7 +64,7 @@ public class PublicKeys extends ListActivity {
 
 
         // initiate the listadapter
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
                 R.layout.rowlayout2, R.id.listText, listValues);
 
         // assign the list adapter
@@ -72,19 +72,12 @@ public class PublicKeys extends ListActivity {
 
         generate.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view){
-
-                SharedPreferences SP;
-                SharedPreferences.Editor SPE;
+                
                 String contactName = contactname.getText().toString();
                 keyz.generateKeys(contactName);
-                /*
-                SP = context.getSharedPreferences("MyKeyChain", MODE_PRIVATE);
-                SPE = SP.edit();
-                SPE.putString(contactName,keyz.getPublicKeyAsString(contactName));
-                SPE.putString(contactName+"priv",keyz.getPrivateKeyAsString(contactName));
-                SPE.commit();
-                */
                 contactname.setText("");
+                myAdapter.add(contactName);
+                myAdapter.notifyDataSetChanged();
 
             }
         });
