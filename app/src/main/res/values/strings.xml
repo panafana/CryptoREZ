@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Cryptonew</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_key_storage">KeyStorage</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="delete">Delete</string>
+    <string name="decrypt">Decrypt</string>
+    <string name="empty">Empty</string>
+    <string name="action_clear">Clear</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>

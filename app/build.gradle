@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.panaf.cryptorezf"
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+android {
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    /*
+                compile project(':lib')
+                compile files('src/main/java/com/example/panafana/cryptonew/bcprov-jdk16-138.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-codec-1.9.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-logging-1.2.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/httpclient-4.5.3.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/httpcore-4.4.6.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/httpmime-4.5.3.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-4.1.0.jar')
+                compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-platform-4.1.0.jar')
+                */
+    compile 'com.android.support:appcompat-v7:27.1.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:design:27.1.1'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.github.kenglxn.QRGen:android:2.5.0'
+    testCompile 'junit:junit:4.12'
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/commons-codec-1.9.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/commons-logging-1.2.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/httpclient-4.5.3.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/httpcore-4.4.6.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/httpmime-4.5.3.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/jna-4.1.0.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/jna-platform-4.1.0.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/android-async-http-1.4.9.jar')
+    implementation files('src/main/java/com/example/panaf/cryptorezf/bcprov-jdk16-138.jar')
+    implementation 'com.google.code.gson:gson:2.8.5'
+}
