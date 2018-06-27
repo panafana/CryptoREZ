@@ -37,7 +37,7 @@ public class KeyGenerator extends Activity{
         try {
             KeyPairGenerator generator;
             generator = KeyPairGenerator.getInstance("RSA", "BC");
-            generator.initialize(1024, new SecureRandom());
+            generator.initialize(2048, new SecureRandom());
             KeyPair pair = generator.generateKeyPair();
             pubKey = pair.getPublic();
             privKey = pair.getPrivate();

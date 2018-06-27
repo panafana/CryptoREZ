@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -49,14 +51,16 @@ public class SendMessage extends AppCompatActivity {
         final Context context = this;
 
         Button send = findViewById(R.id.send);
-        final EditText message = findViewById(R.id.message);
-        //final String myprivKeyStr= getIntent().getStringExtra("MyPrivKey");
+        final TextInputEditText message = findViewById(R.id.message);
+        TextInputLayout layout = findViewById(R.id.textContainer);
+        layout.setCounterEnabled(true);
+        layout.setCounterMaxLength(250);
         final String myprivKeyName= getIntent().getStringExtra("MyKeyName");
         final String pubKeyStr = getIntent().getStringExtra("publicK");
         String contact = getIntent().getStringExtra("contact");
         TextView showKeyName = findViewById(R.id.mykey);
         TextView showcontact = findViewById(R.id.contactkey);
-        showKeyName.setText("Key used: "+myprivKeyName);
+        showKeyName.setText("Key used: "+myprivKeyName.substring(10));
         showcontact.setText("Contact to send to: "+contact);
 
         send.setOnClickListener(new View.OnClickListener() {

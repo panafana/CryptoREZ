@@ -54,7 +54,6 @@ public class PublicKeys extends ListActivity {
             if(entry.getKey().startsWith("PrivateKey")==false) {
                 String temp= entry.getKey().toString();
                 String finaltemp = temp.substring(9);
-                System.out.println();
                 listValues.add(finaltemp);
                 //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
             }
@@ -72,7 +71,7 @@ public class PublicKeys extends ListActivity {
 
         generate.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view){
-                
+
                 String contactName = contactname.getText().toString();
                 keyz.generateKeys(contactName);
                 contactname.setText("");
