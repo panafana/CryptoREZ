@@ -89,7 +89,7 @@ public class PublicMessages  extends ListActivity {
         }
 
         ArrayList<String> decr = new ArrayList<>();
-        for (int i=0; i<mess.size(); i++) {
+        for (int i=mess.size()-1; i>=0; i--) {
             for(int z=0;z<privkeys.size();z++){
                 System.out.println("z=" + z);
                 boolean verification = false;

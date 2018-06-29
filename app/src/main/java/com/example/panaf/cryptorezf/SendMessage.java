@@ -161,7 +161,7 @@ public class SendMessage extends AppCompatActivity {
                 String method = "register";
                 BackgroundTask backgroundTask = new BackgroundTask(context);
                 backgroundTask.execute(method, encrypted, signString);
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+               Intent i = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(i);
             }
         });
