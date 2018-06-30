@@ -68,5 +68,9 @@ public class ShowPK extends ListActivity {
         ClipData clip = ClipData.newPlainText("Public Key", pubKeyStr);
         clipboard.setPrimaryClip(clip);
         Toast.makeText(context, "Public Key Copied", Toast.LENGTH_LONG).show();
+        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+        i.putExtra("MyPKKeyName",selectedItem);
+        i.putExtra("MyPKValue",pubKeyStr);
+        startActivity(i);
     }
 }

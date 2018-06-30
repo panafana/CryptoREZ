@@ -8,6 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -20,6 +24,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.ClipboardManager;
 import java.io.UnsupportedEncodingException;
@@ -51,6 +56,7 @@ import org.w3c.dom.Text;
 
 import static android.R.attr.id;
 import static android.R.attr.name;
+import static android.R.attr.scaleType;
 import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 
@@ -68,21 +74,33 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Button next =  findViewById(R.id.next);
+        ImageView qr = findViewById(R.id.imageView);
+        Button button2 =  findViewById(R.id.button2);
+        Button store =  findViewById(R.id.store);
+        Button display =  findViewById(R.id.display);
+        Button sendmessage =  findViewById(R.id.sendmessage);
+        TextView showPKName = findViewById(R.id.pkName);
+        final EditText editText =  findViewById(R.id.editText);
+        final EditText editText2 =  findViewById(R.id.editText2);
 
-        Button next = (Button) findViewById(R.id.next);
-
-        Button button2 = (Button) findViewById(R.id.button2);
-        Button store = (Button) findViewById(R.id.store);
-        Button display = (Button) findViewById(R.id.display);
-        Button sendmessage = (Button) findViewById(R.id.sendmessage);
-
-        final EditText editText = (EditText) findViewById(R.id.editText);
-        final EditText editText2 = (EditText) findViewById(R.id.editText2);
 
 
-        final KeyGenerator keys = new KeyGenerator(context);
-        final String myprivKeyStr= getIntent().getStringExtra("MyPrivKey");
-        String myprivKeyName= getIntent().getStringExtra("MyKeyName");
+        //Show PK QR code if it was selected
+        Intent intent = getIntent();
+
+        if(intent.hasExtra("MyPKKeyName")){
+            String pkName = intent.getStringExtra("MyPKKeyName");
+            String pkValue =intent.getStringExtra("MyPKValue");
+            Bitmap myBitmap = QRCode.from(pkValue).bitmap();
+
+            qr.setImageBitmap(myBitmap);
+            //qr.setScaleType(ImageView.ScaleType.MATRIX);
+            showPKName.setText("Showing "+pkName);
+        }
+
+
+
 
 
         //Show Public Key
@@ -143,15 +161,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static boolean verify(String plainText, String signature, PublicKey publicKey) throws Exception {
-        Signature publicSignature = Signature.getInstance("SHA512withRSA");
-        publicSignature.initVerify(publicKey);
-        publicSignature.update(plainText.getBytes(UTF_8));
-
-        byte[] signatureBytes = Base64.decode(signature);
-
-        return publicSignature.verify(signatureBytes);
-    }
 
 
 
