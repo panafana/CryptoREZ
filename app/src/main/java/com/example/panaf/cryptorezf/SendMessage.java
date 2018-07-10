@@ -152,11 +152,12 @@ public class SendMessage extends AppCompatActivity {
                 byte[] signBytes2 = Base64.encode(signature);
                 String signString = new String(signBytes2);
 
-
+                /*
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("Public Key", pubKeyStr);
                 clipboard.setPrimaryClip(clip);
                 Toast.makeText(context, "Public Key Copied", Toast.LENGTH_LONG).show();
+                */
 
                 String method = "register";
                 BackgroundTask backgroundTask = new BackgroundTask(context);

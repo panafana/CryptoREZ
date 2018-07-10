@@ -87,6 +87,7 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+                return "Failed";
             }
         }
 
