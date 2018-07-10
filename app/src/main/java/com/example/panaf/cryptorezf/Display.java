@@ -40,10 +40,10 @@ public class Display extends AppCompatActivity {
 
     ArrayList<String> messages = new ArrayList<>();
     ArrayList<String> signatures = new ArrayList<>();
+    ArrayList<String> timestamps = new ArrayList<>();
     private String jsonResult;
     private String url = "http://83.212.84.230/getdata.php";
     private ListView listView;
-    private TextView textv1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,11 +137,13 @@ public class Display extends AppCompatActivity {
                 JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
                 String name = jsonChildNode.optString("message");
                 String sign = jsonChildNode.optString("signature");
+                String timestamp =jsonChildNode.optString("timestamp");
                 //String number = jsonChildNode.optString("employee_no");
                 String outPut = name ;
                 String outPut2 = sign;
                 messages.add(outPut);
                 signatures.add(outPut2);
+                timestamps.add(timestamp);
                 //System.out.println(outPut.length());
                 //textv1.setText(name);
                 //textv1.setText(jsonResult);
@@ -156,21 +158,27 @@ public class Display extends AppCompatActivity {
         SharedPreferences.Editor editor = SP.edit();
         ArrayList<String> set = new ArrayList<>();
         ArrayList<String> set2 = new ArrayList<>();
+        ArrayList<String> set3 = new ArrayList<>();
 
         set.addAll(messages);
         set2.addAll(signatures);
+        set3.addAll(timestamps);
         Gson gson = new Gson();
         String json = gson.toJson(set);
         Gson gson2 = new Gson();
         String json2 = gson2.toJson(set2);
+        Gson gson3 = new Gson();
+        String json3 = gson3.toJson(set3);
         
         editor.putString("messages", json);
         editor.putString("signatures", json2);
+        editor.putString("timestamps", json3);
         editor.apply();
         editor.commit();
         System.out.println("stored");
         System.out.println("Messages: "+messages);
         System.out.println("Signatures: "+signatures);
+        System.out.println("timestamps: "+timestamps);
 
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, employeeList,
