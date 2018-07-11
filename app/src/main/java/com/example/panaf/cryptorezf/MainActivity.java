@@ -90,13 +90,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         if(intent.hasExtra("MyPKKeyName")){
-            String pkName = intent.getStringExtra("MyPKKeyName");
-            String pkValue =intent.getStringExtra("MyPKValue");
+            final String pkName = intent.getStringExtra("MyPKKeyName");
+            final String pkValue =intent.getStringExtra("MyPKValue");
             Bitmap myBitmap = QRCode.from(pkValue).bitmap();
 
             qr.setImageBitmap(myBitmap);
+            qr.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+
+                    Intent i = new Intent(getApplicationContext(),FullscreenActivity.class);
+                    i.putExtra("Key",pkValue);
+                    startActivity(i);
+                }
+            });
             //qr.setScaleType(ImageView.ScaleType.MATRIX);
-            showPKName.setText("Showing "+pkName);
+            showPKName.setText("Showing Key: "+pkName);
         }
 
 

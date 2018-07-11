@@ -201,7 +201,7 @@ public class PublicMessages  extends ListActivity {
 
                     if (verification) {
                         //decr.add(decrypted + " by " + names.get(k) + " "+ timestamps.get(k));
-                        String tempStr = decrypted + " by " + names.get(k) + " "+ timestamps.get(k);
+                        String tempStr = decrypted + " by " + names.get(k) + " "+ timestamps.get(i);
                         Spannable tempSpan = colorized(tempStr,"by", Color.RED);
                         decr.add(tempSpan);
                         System.out.println("Success");
