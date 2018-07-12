@@ -6,16 +6,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,16 +25,13 @@ public class ShowPK extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_show_pk);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         SP = this.getSharedPreferences("KeyPair", MODE_PRIVATE);
         Map<String, ?> keys = SP.getAll();
-
-        listValues = new ArrayList<String>();
+        listValues = new ArrayList<>();
 
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
             if (entry.getKey().startsWith("PublicKey")) {
-                String temp = entry.getKey().toString();
+                String temp = entry.getKey();
                 String finaltemp = temp.substring(9);
                 listValues.add(finaltemp);
                 System.out.println(finaltemp);
@@ -47,7 +39,7 @@ public class ShowPK extends ListActivity {
         }
 
         // initiate the listadapter
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this,
                 R.layout.rowlayout2, R.id.listText, listValues);
         // assign the list adapter
         setListAdapter(myAdapter);

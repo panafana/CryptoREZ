@@ -9,25 +9,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class PublicKeys extends ListActivity {
 
-    private TextView text;
     private List<String> listValues;
     SharedPreferences SP;
-
-    private Toolbar supportActionBar;
     Context context = this;
 
 
@@ -38,16 +32,10 @@ public class PublicKeys extends ListActivity {
         Button generate =  findViewById(R.id.generate);
         final EditText contactname = findViewById(R.id.contactname);
         final KeyGenerator keyz = new KeyGenerator(context);
-
-
-
         SP = this.getSharedPreferences("KeyPair", MODE_PRIVATE);
-
         final Map<String, ?> keys = SP.getAll();
 
-        text = (TextView) findViewById(R.id.mainText);
-
-        listValues = new ArrayList<String>();
+        listValues = new ArrayList<>();
 
 
         for (Map.Entry<String, ?> entry : keys.entrySet()) {

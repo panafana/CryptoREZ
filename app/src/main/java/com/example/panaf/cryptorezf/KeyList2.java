@@ -20,34 +20,27 @@ import java.util.Map;
 
 public class KeyList2 extends ListActivity {
 
-    private TextView text;
     private List<String> listValues;
     SharedPreferences SP;
-    SharedPreferences.Editor SPE;
-    private Toolbar supportActionBar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.keylist);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         SP = this.getSharedPreferences("KeyChain", MODE_PRIVATE);
         Map<String, ?> keys = SP.getAll();
-        text = (TextView) findViewById(R.id.mainText);
-        listValues = new ArrayList<String>();
+        listValues = new ArrayList<>();
 
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
 
-            listValues.add(entry.getKey().toString());
+            listValues.add(entry.getKey());
             //Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
 
         }
 
         // initiate the listadapter
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<>(this,
                 R.layout.rowlayout, R.id.listText, listValues);
         // assign the list adapter
         setListAdapter(myAdapter);

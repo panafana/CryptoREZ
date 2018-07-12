@@ -62,16 +62,13 @@ import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 public class MainActivity extends AppCompatActivity {
 
-
     Context context = this;
-    public String input;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button next =  findViewById(R.id.next);
@@ -123,23 +120,18 @@ public class MainActivity extends AppCompatActivity {
         //Store new Contact
         store.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view){
-
                 SharedPreferences SP;
                 SharedPreferences.Editor SPE;
                 String keytostore = editText2.getText().toString();
                 SP = context.getSharedPreferences("KeyChain", MODE_PRIVATE);
                 SPE = SP.edit();
                 SPE.putString(editText.getText().toString(), keytostore);
-                SPE.commit();
+                SPE.apply();
                 editText.setText("");
                 editText2.setText("");
-
-
             }
 
         });
-
-
 
         //Go to Display Class
         display.setOnClickListener(new View.OnClickListener() {
@@ -158,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        //Start Class sequence for sending message
        sendmessage.setOnClickListener(new View.OnClickListener() {
             public void onClick (View view){
                 Intent i = new Intent(getApplicationContext(),PublicKeys.class);
@@ -166,10 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
     }
-
-
 
 
     @Override
@@ -196,7 +186,6 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), PublicKeys.class);
             startActivity(i);
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -211,33 +200,31 @@ public class MainActivity extends AppCompatActivity {
                         SP = context.getSharedPreferences("KeyChain", MODE_PRIVATE);
                         SPE = SP.edit();
                         SPE.clear();
-                        SPE.commit();
+                        SPE.apply();
                         SharedPreferences SP2;
                         SharedPreferences.Editor SPE2;
                         SP2 = context.getSharedPreferences("KeyPair", MODE_PRIVATE);
                         SPE2 = SP2.edit();
                         SPE2.clear();
-                        SPE2.commit();
+                        SPE2.apply();
                         SharedPreferences SP3;
                         SharedPreferences.Editor SPE3;
                         SP3 = context.getSharedPreferences("messages", MODE_PRIVATE);
                         SPE3 = SP3.edit();
                         SPE3.clear();
-                        SPE3.commit();
-
+                        SPE3.apply();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
                         // No button clicked
                         // do nothing
-
                         break;
                 }
             }
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete all  Keys?")
+        builder.setMessage("Delete all  Data (Keys,Messages)?")
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }

@@ -52,12 +52,10 @@ public class PublicMessages  extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_messages);
 
-        PublicKey publicKey = null;
         final KeyGenerator keyz = new KeyGenerator(context);
 
         SP = getSharedPreferences("messages", MODE_PRIVATE);
         SP2 = getSharedPreferences("KeyChain",MODE_PRIVATE);
-        KeyGenerator keyzz= new KeyGenerator(this);
         SP3 =getSharedPreferences("KeyPair", MODE_PRIVATE);
 
         Gson gson = new Gson();
@@ -85,21 +83,21 @@ public class PublicMessages  extends ListActivity {
 
         for (Map.Entry<String, ?> entry : temp.entrySet()) {
             keys.add(entry.getValue().toString());
-            names.add(entry.getKey().toString());
+            names.add(entry.getKey());
         }
         for (Map.Entry<String, ?> entry : temp.entrySet()) {
             keys.add(entry.getValue().toString());
-            names.add(entry.getKey().toString());
+            names.add(entry.getKey());
         }
 
         for (Map.Entry<String, ?> entry : temp2.entrySet()) {
             if(entry.getKey().startsWith("PrivateKey")) {
-                privkeys.add(entry.getKey().toString());
-                System.out.println(entry.getKey().toString());
+                privkeys.add(entry.getKey());
+                System.out.println(entry.getKey());
             }
         }
 
-        ArrayList<Spannable> decr = new ArrayList<Spannable>();
+        ArrayList<Spannable> decr = new ArrayList<>();
         for (int i=mess.size()-1; i>=0; i--) {
             for(int z=0;z<privkeys.size();z++){
                 System.out.println("z=" + z);
@@ -210,7 +208,7 @@ public class PublicMessages  extends ListActivity {
         }
         //System.out.println("total messages: "+mess.size());
         //System.out.println("total signatures: "+sign.size());
-        ArrayAdapter<Spannable> myAdapter = new ArrayAdapter<Spannable>(this,
+        ArrayAdapter<Spannable> myAdapter = new ArrayAdapter<>(this,
                 R.layout.rowlayout, R.id.listText, decr);
 
         // assign the list adapter
