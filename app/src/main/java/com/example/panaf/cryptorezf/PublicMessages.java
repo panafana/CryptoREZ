@@ -1,43 +1,40 @@
 package com.example.panaf.cryptorezf;
 
 import android.app.ListActivity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-//import org.bouncycastle.util.encoders.Base64;
+import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+
 import org.bouncycastle.util.encoders.Base64;
 
 import static org.apache.commons.codec.CharEncoding.UTF_8;
@@ -79,7 +76,6 @@ public class PublicMessages  extends ListActivity {
         Map<String, ?> temp = SP2.getAll();
         Map<String, ?> temp2 = SP3.getAll();
 
-
         ArrayList<String> keys = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
         ArrayList<String> mess = new ArrayList<>(set);
@@ -110,7 +106,7 @@ public class PublicMessages  extends ListActivity {
                 boolean verification = false;
                 boolean flag = true;
                 String privkeyString= privkeys.get(z);
-                System.out.println("private key "+privkeyString);
+                //System.out.println("private key "+privkeyString);
                 //PrivateKey privateKey = GeneratePrivateKey(privkeyString);
                 //System.out.println("private key after "+Base64.encode(privateKey.getEncoded()));
                 System.out.println("i=" + i);
@@ -210,20 +206,30 @@ public class PublicMessages  extends ListActivity {
                         System.out.println(decrypted + "aaaaa");
                     }
                 }
-
             }
-
         }
-        System.out.println("total messages: "+mess.size());
-        System.out.println("total signatures: "+sign.size());
+        //System.out.println("total messages: "+mess.size());
+        //System.out.println("total signatures: "+sign.size());
         ArrayAdapter<Spannable> myAdapter = new ArrayAdapter<Spannable>(this,
                 R.layout.rowlayout, R.id.listText, decr);
 
         // assign the list adapter
         setListAdapter(myAdapter);
 
-
     }
+
+        @Override
+        protected void onListItemClick(ListView list, View view, int position, long id) {
+            super.onListItemClick(list, view, position, id);
+            ClipData myClip;
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            String text = Html.fromHtml( list.getItemAtPosition(position).toString(), Html.FROM_HTML_MODE_LEGACY).toString();
+            myClip = ClipData.newPlainText("text", text);
+            clipboard.setPrimaryClip(myClip);
+            Toast.makeText(context,"Message Copied", Toast.LENGTH_LONG).show();
+
+        }
+
 
     /**
      * Colorize a specific substring in a string for TextView. Use it like this: <pre>
@@ -283,24 +289,4 @@ public class PublicMessages  extends ListActivity {
         return publicKey;
     }
 
-    public static PrivateKey GeneratePrivateKey(String privkeystr){
-        PrivateKey privateKey = null;
-        byte[] sigBytespriv = Base64.decode(privkeystr);
-        PKCS8EncodedKeySpec x509KeySpec2 = new PKCS8EncodedKeySpec(sigBytespriv);
-
-        KeyFactory keyFact = null;
-        try {
-            keyFact = KeyFactory.getInstance("RSA", "BC");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        }
-        try {
-            privateKey = keyFact.generatePrivate(x509KeySpec2);
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        }
-        return privateKey;
-    }
 }

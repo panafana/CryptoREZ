@@ -52,46 +52,52 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="111dp"
-        android:layout_height="48dp"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginLeft="84dp"
+        android:layout_marginTop="8dp"
         android:scaleType="fitCenter"
         android:text="Messages"
         app:layout_constraintBottom_toTopOf="@+id/next"
         app:layout_constraintEnd_toStartOf="@+id/sendmessage"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/display"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="56dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitCenter"
         android:text="Whiteboard"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sendmessage" />
+        app:layout_constraintTop_toBottomOf="@+id/sendmessage"
+        app:layout_constraintVertical_bias="0.002" />
 
     <Button
         android:id="@+id/next"
-        android:layout_width="105dp"
-        android:layout_height="50dp"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="188dp"
         android:scaleType="fitCenter"
         android:text="Show PK"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/display"
+        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.022" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -143,6 +149,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="8dp"
+        android:layout_weight="4"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -153,14 +160,14 @@
 
     <Button
         android:id="@+id/sendmessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="55dp"
         android:layout_marginEnd="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="132dp"
         android:text="New message"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

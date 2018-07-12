@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(getApplicationContext(), KeyList.class);
+            Intent i = new Intent(getApplicationContext(), KeyList2.class);
             startActivity(i);
         }else if(id== R.id.action_clear){
             alertMessage();
@@ -218,6 +218,12 @@ public class MainActivity extends AppCompatActivity {
                         SPE2 = SP2.edit();
                         SPE2.clear();
                         SPE2.commit();
+                        SharedPreferences SP3;
+                        SharedPreferences.Editor SPE3;
+                        SP3 = context.getSharedPreferences("messages", MODE_PRIVATE);
+                        SPE3 = SP3.edit();
+                        SPE3.clear();
+                        SPE3.commit();
 
                         break;
 

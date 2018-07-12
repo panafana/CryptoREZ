@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,10 +13,15 @@ import java.util.Map;
 import java.util.Set;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,15 +38,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Display extends AppCompatActivity {
     SharedPreferences SP;
 
-    SharedPreferences.Editor SPE;
 
-    ArrayList<String> messages = new ArrayList<>();
-    ArrayList<String> signatures = new ArrayList<>();
-    ArrayList<String> timestamps = new ArrayList<>();
+
     private String jsonResult;
     private String url = "http://83.212.84.230/getdata.php";
     private ListView listView;
@@ -50,8 +54,8 @@ public class Display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
         listView = (ListView) findViewById(R.id.listView1);
-        SP = getSharedPreferences("messages", MODE_PRIVATE);
-        //textv1=(TextView)findViewById(R.id.textView1);
+
+
         accessWebService();
 
     }
@@ -64,7 +68,27 @@ public class Display extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(params[0]);
+            SP = getSharedPreferences("messages", MODE_PRIVATE);
+            String id;
+            Gson gson4 = new Gson();
+            //System.out.println(SP.getString("ids", null));
+            if(SP.contains("ids")) {
+                String json4 = SP.getString("ids", null);
+                Type type4 = new TypeToken<ArrayList<String>>() {
+                }.getType();
+                ArrayList<String> set4 = gson4.fromJson(json4, type4);
+                ArrayList<String> ids = new ArrayList<>(set4);
+                 id = new String(ids.get(ids.size() - 1));
+            }else {
+                 id = "-1";
+            }
+
             try {
+                List<NameValuePair> sendparams = new ArrayList<>();
+                sendparams.add(new BasicNameValuePair("id", id));
+                UrlEncodedFormEntity ent = new UrlEncodedFormEntity(sendparams, HTTP.UTF_8);
+                httppost.setEntity(ent);
+
                 HttpResponse response = httpclient.execute(httppost);
 
                 HttpEntity entity = response.getEntity();
@@ -127,58 +151,105 @@ public class Display extends AppCompatActivity {
     public void ListDrwaer() {
         List<Map<String, String>> employeeList = new ArrayList<Map<String, String>>();
 
-        try {
+        SP = getSharedPreferences("messages", MODE_PRIVATE);
+            ArrayList<String> messages = new ArrayList<>();
+            ArrayList<String> signatures = new ArrayList<>();
+            ArrayList<String> timestamps = new ArrayList<>();
+            ArrayList<String> ids = new ArrayList<>();
+            Gson gson = new Gson();
+            String json = SP.getString("messages", null);
+            Type type = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            ArrayList<String> set = gson.fromJson(json, type);
+            Gson gson2 = new Gson();
+            String json2 = SP.getString("signatures", null);
+            Type type2 = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            ArrayList<String> set2 = gson2.fromJson(json2, type2);
+            Gson gson3 = new Gson();
+            String json3 = SP.getString("timestamps", null);
+            Type type3 = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            ArrayList<String> set3 = gson3.fromJson(json3, type3);
+            Gson gson4 = new Gson();
+            String json4 = SP.getString("ids", null);
+            Type type4 = new TypeToken<ArrayList<String>>() {
+            }.getType();
+            ArrayList<String> set4 = gson4.fromJson(json4, type4);
 
-
-            JSONObject jsonResponse = new JSONObject(jsonResult);
-
-            JSONArray jsonMainNode = jsonResponse.optJSONArray("result");
-            for (int i = 0; i <  jsonMainNode.length() ; i++) {
-                JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
-                String name = jsonChildNode.optString("message");
-                String sign = jsonChildNode.optString("signature");
-                String timestamp =jsonChildNode.optString("timestamp");
-                //String number = jsonChildNode.optString("employee_no");
-                String outPut = name ;
-                String outPut2 = sign;
-                messages.add(outPut);
-                signatures.add(outPut2);
-                timestamps.add(timestamp);
-                //System.out.println(outPut.length());
-                //textv1.setText(name);
-                //textv1.setText(jsonResult);
-                employeeList.add(createEmployee("whiteboard", outPut));
+            if(set!=null) {
+                 messages = new ArrayList<>(set);
+                 signatures = new ArrayList<>(set2);
+                 timestamps = new ArrayList<>(set3);
+                 ids = new ArrayList<>(set4);
             }
-        } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "Error JSON Parser" + e.toString(),
-                    Toast.LENGTH_SHORT).show();
-        } catch (NullPointerException e){
-            Toast.makeText(this , "No internet",Toast.LENGTH_LONG).show();
-        }
-        SharedPreferences.Editor editor = SP.edit();
-        ArrayList<String> set = new ArrayList<>();
-        ArrayList<String> set2 = new ArrayList<>();
-        ArrayList<String> set3 = new ArrayList<>();
 
-        set.addAll(messages);
-        set2.addAll(signatures);
-        set3.addAll(timestamps);
-        Gson gson = new Gson();
-        String json = gson.toJson(set);
-        Gson gson2 = new Gson();
-        String json2 = gson2.toJson(set2);
-        Gson gson3 = new Gson();
-        String json3 = gson3.toJson(set3);
-        
-        editor.putString("messages", json);
-        editor.putString("signatures", json2);
-        editor.putString("timestamps", json3);
-        editor.apply();
-        editor.commit();
-        System.out.println("stored");
-        System.out.println("Messages: "+messages);
-        System.out.println("Signatures: "+signatures);
-        System.out.println("timestamps: "+timestamps);
+            try {
+
+
+                JSONObject jsonResponse = new JSONObject(jsonResult);
+
+                JSONArray jsonMainNode = jsonResponse.optJSONArray("result");
+                for (int i = 0; i < jsonMainNode.length(); i++) {
+                    JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
+                    String name = jsonChildNode.optString("message");
+                    String sign = jsonChildNode.optString("signature");
+                    String timestamp = jsonChildNode.optString("timestamp");
+                    String id = jsonChildNode.optString("id");
+
+                    String outPut = name;
+                    String outPut2 = sign;
+                    messages.add(outPut);
+                    signatures.add(outPut2);
+                    timestamps.add(timestamp);
+                    ids.add(id);
+                    System.out.println("New data: "+ (i+1));
+
+
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "Error JSON Parser" + e.toString(),
+                        Toast.LENGTH_SHORT).show();
+            } catch (NullPointerException e) {
+                Toast.makeText(this, "No internet", Toast.LENGTH_LONG).show();
+            }
+
+
+            SharedPreferences.Editor editor = SP.edit();
+            ArrayList<String> set1 = new ArrayList<>();
+            ArrayList<String> set12 = new ArrayList<>();
+            ArrayList<String> set13 = new ArrayList<>();
+            ArrayList<String> set14 = new ArrayList<>();
+
+            set1.addAll(messages);
+            set12.addAll(signatures);
+            set13.addAll(timestamps);
+            set14.addAll(ids);
+            Gson gson1 = new Gson();
+            String json1 = gson1.toJson(set1);
+            Gson gson12 = new Gson();
+            String json12 = gson12.toJson(set12);
+            Gson gson13 = new Gson();
+            String json13 = gson13.toJson(set13);
+            Gson gson14 = new Gson();
+            String json14 = gson14.toJson(set14);
+
+            editor.putString("messages", json1);
+            editor.putString("signatures", json12);
+            editor.putString("timestamps", json13);
+            editor.putString("ids", json14);
+            editor.apply();
+            editor.commit();
+            System.out.println("stored");
+            //System.out.println("Messages: " + messages);
+            //System.out.println("Signatures: " + signatures);
+            //System.out.println("timestamps: " + timestamps);
+            System.out.println("ids: " + ids);
+
+            for (int i = 0; i < messages.size(); i++) {
+                String temp = messages.get(i);
+                employeeList.add(createEmployee("whiteboard", temp));
+            }
 
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(this, employeeList,

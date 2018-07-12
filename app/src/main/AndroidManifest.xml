@@ -51,7 +51,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Display" />
         <activity android:name=".PublicMessages" />
-        <activity android:name=".SignedMessage" />
         <activity
             android:name=".SendMessage"
             android:label="@string/title_activity_main2"

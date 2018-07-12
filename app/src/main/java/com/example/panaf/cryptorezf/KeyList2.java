@@ -26,24 +26,18 @@ public class KeyList2 extends ListActivity {
     SharedPreferences.Editor SPE;
     private Toolbar supportActionBar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.keylist2);
-
-
+        setContentView(R.layout.keylist);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         SP = this.getSharedPreferences("KeyChain", MODE_PRIVATE);
-
         Map<String, ?> keys = SP.getAll();
-
         text = (TextView) findViewById(R.id.mainText);
-
         listValues = new ArrayList<String>();
-
 
         for (Map.Entry<String, ?> entry : keys.entrySet()) {
 
@@ -52,11 +46,9 @@ public class KeyList2 extends ListActivity {
 
         }
 
-
         // initiate the listadapter
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
                 R.layout.rowlayout, R.id.listText, listValues);
-
         // assign the list adapter
         setListAdapter(myAdapter);
 
@@ -66,15 +58,8 @@ public class KeyList2 extends ListActivity {
     @Override
     protected void onListItemClick(ListView list, View view, int position, long id) {
         super.onListItemClick(list, view, position, id);
+        //String privKey = getIntent().getExtras().getString("MyPrivKey");
 
-        String selectedItem = (String) getListView().getItemAtPosition(position);
-        //String selectedItem = (String) getListAdapter().getItem(position);
-
-        text.setText("You clicked " + selectedItem + " at position " + position);
-        Intent i = new Intent(getApplicationContext(), SignedMessage.class);
-        i.putExtra("publicK", SP.getString(selectedItem,""));
-
-        startActivity(i);
     }
 
 
