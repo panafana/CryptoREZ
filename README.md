@@ -1,5 +1,6 @@
 # CryptoREZ
 Android app for RSA encrypted communication
+Key size used is 2048 and it is changeable in the code. That key size limits the max message size to about 250 characters which produces a warning color when typing a new message in the app.
 
 #PHP files for communication with MySql not included
 
