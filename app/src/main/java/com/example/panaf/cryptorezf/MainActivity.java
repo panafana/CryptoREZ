@@ -2,19 +2,12 @@ package com.example.panaf.cryptorezf;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,46 +17,17 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.content.ClipboardManager;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.SignatureException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Arrays;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import com.example.panaf.cryptorezf.KeyGenerator;
-import android.content.SharedPreferences;
-import android.widget.Toast;
-
+import com.blikoon.qrcodescanner.QrCodeActivity;
 import net.glxn.qrgen.android.QRCode;
 
-import org.bouncycastle.util.encoders.Base64;
-import org.w3c.dom.Text;
 
-import static android.R.attr.id;
-import static android.R.attr.name;
-import static android.R.attr.scaleType;
-import static org.apache.commons.codec.CharEncoding.UTF_8;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final int REQUEST_CODE_QR_SCAN = 101;
     Context context = this;
-
+    String LOGTAG = "tag";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick (View view){
                 SharedPreferences SP;
                 SharedPreferences.Editor SPE;
+                if(editText2.getText().toString()!=""&& editText.getText().toString()!=""){
                 String keytostore = editText2.getText().toString();
                 SP = context.getSharedPreferences("KeyChain", MODE_PRIVATE);
                 SPE = SP.edit();
@@ -130,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 editText.setText("");
                 editText2.setText("");
             }
-
+            }
         });
 
         //Go to Display Class
@@ -185,8 +150,50 @@ public class MainActivity extends AppCompatActivity {
         }else if(id== R.id.public_keys){
             Intent i = new Intent(getApplicationContext(), PublicKeys.class);
             startActivity(i);
+        }else if(id== R.id.action_scan){
+            Intent i = new Intent(MainActivity.this,QrCodeActivity.class);
+            startActivityForResult( i,REQUEST_CODE_QR_SCAN);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(resultCode != Activity.RESULT_OK)
+        {
+
+            Log.d(LOGTAG,"COULD NOT GET A GOOD RESULT.");
+            if(data==null)
+                return;
+            //Getting the passed result
+            String result = data.getStringExtra("com.blikoon.qrcodescanner.error_decoding_image");
+            if( result!=null)
+            {
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Scan Error");
+                alertDialog.setMessage("QR Code could not be scanned");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            }
+            return;
+
+        }
+        if(requestCode == REQUEST_CODE_QR_SCAN)
+        {
+            if(data==null)
+                return;
+            //Getting the passed result
+            String result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
+            Log.d(LOGTAG,"Have scan result in your app activity :"+ result);
+            EditText editText2 =  findViewById(R.id.editText2);
+            editText2.setText(result);
+
+        }
     }
 
     public void alertMessage() {

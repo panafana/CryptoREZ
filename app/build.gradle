@@ -5,7 +5,7 @@ android {
     defaultConfig {
         applicationId "com.example.panaf.cryptorezf"
         minSdkVersion 24
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -61,4 +61,6 @@ dependencies {
     implementation files('src/main/java/com/example/panaf/cryptorezf/android-async-http-1.4.9.jar')
     implementation files('src/main/java/com/example/panaf/cryptorezf/bcprov-jdk16-138.jar')
     implementation 'com.google.code.gson:gson:2.8.5'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.github.blikoon:QRCodeScanner:0.1.2'
 }

@@ -61,11 +61,12 @@ public class PublicKeys extends ListActivity {
             public void onClick (View view){
 
                 String contactName = contactname.getText().toString();
-                keyz.generateKeys(contactName);
-                contactname.setText("");
-                myAdapter.add(contactName);
-                myAdapter.notifyDataSetChanged();
-
+                if(contactName!="") {
+                    keyz.generateKeys(contactName);
+                    contactname.setText("");
+                    myAdapter.add(contactName);
+                    myAdapter.notifyDataSetChanged();
+                }
             }
         });
     }
