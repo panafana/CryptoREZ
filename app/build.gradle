@@ -30,10 +30,8 @@ android {
 
 dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
     /*
                 compile project(':lib')
                 compile files('src/main/java/com/example/panafana/cryptonew/bcprov-jdk16-138.jar')
@@ -45,12 +43,11 @@ dependencies {
                 compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-4.1.0.jar')
                 compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-platform-4.1.0.jar')
                 */
-    compile 'com.android.support:appcompat-v7:27.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:design:27.1.1'
-    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
-    compile 'com.github.kenglxn.QRGen:android:2.5.0'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.mcxiaoke.volley:library-aar:1.0.0'
+    implementation 'com.github.kenglxn.QRGen:android:2.5.0'
     implementation files('src/main/java/com/example/panaf/cryptorezf/libs/commons-codec-1.9.jar')
     implementation files('src/main/java/com/example/panaf/cryptorezf/libs/commons-logging-1.2.jar')
     implementation files('src/main/java/com/example/panaf/cryptorezf/libs/httpclient-4.5.3.jar')
@@ -62,5 +59,5 @@ dependencies {
     implementation files('src/main/java/com/example/panaf/cryptorezf/bcprov-jdk16-138.jar')
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.github.blikoon:QRCodeScanner:0.1.2'
+    implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
 }

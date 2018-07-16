@@ -22,6 +22,8 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,8 +36,8 @@ import com.google.gson.reflect.TypeToken;
 
 public class Display extends AppCompatActivity {
     SharedPreferences SP;
-
-
+    Context context;
+    int newmessagecount =0;
 
     private String jsonResult;
     private String url = "http://83.212.84.230/getdata.php";
@@ -130,6 +132,8 @@ public class Display extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             ListDrwaer();
+
+            Toast.makeText(getApplicationContext(), newmessagecount+" new messages", Toast.LENGTH_LONG).show();
         }
     }// end async task
 
@@ -176,11 +180,11 @@ public class Display extends AppCompatActivity {
                  ids = new ArrayList<>(set4);
             }
 
+
             try {
 
 
                 JSONObject jsonResponse = new JSONObject(jsonResult);
-
                 JSONArray jsonMainNode = jsonResponse.optJSONArray("result");
                 for (int i = 0; i < jsonMainNode.length(); i++) {
                     JSONObject jsonChildNode = jsonMainNode.getJSONObject(i);
@@ -196,9 +200,11 @@ public class Display extends AppCompatActivity {
                     timestamps.add(timestamp);
                     ids.add(id);
                     System.out.println("New data: "+ (i+1));
-
+                    newmessagecount =(i+1);
 
                 }
+
+
             } catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Error JSON Parser" + e.toString(),
                         Toast.LENGTH_SHORT).show();
@@ -248,6 +254,8 @@ public class Display extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 new String[] { "whiteboard" }, new int[] { android.R.id.text1 });
         listView.setAdapter(simpleAdapter);
+
+
     }
 
     private HashMap<String, String> createEmployee(String name, String number) {

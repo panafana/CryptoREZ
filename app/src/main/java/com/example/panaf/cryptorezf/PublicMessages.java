@@ -135,6 +135,8 @@ public class PublicMessages  extends ListActivity {
                 } catch (BadPaddingException e) {
                     e.printStackTrace();
                     flag = false;
+                }catch (RuntimeException e){
+                    e.printStackTrace();
                 }
                 String decrypted = null;
                 try {
