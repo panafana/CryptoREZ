@@ -121,8 +121,7 @@ public class PublicKeys extends ListActivity {
         String menuItemName = menuItems[menuItemIndex];
         String listItemName = listValues.get(info.position);
         System.out.println(String.format("Selected %s for item %s", menuItemName, listItemName));
-        SP = this.getSharedPreferences("KeyPair", MODE_PRIVATE);
-        SPE= SP.edit();
+
         switch(menuItemName){
             case "Edit Name":
                 alertMessage(listItemName);
@@ -130,11 +129,7 @@ public class PublicKeys extends ListActivity {
 
                 break;
             case "Delete":
-
-                SPE.remove("PublicKey"+listItemName);
-                SPE.remove("PrivateKey"+listItemName);
-                SPE.apply();
-                refresh();
+                alertMessage2(listItemName);
                 break;
 
         }
@@ -199,5 +194,33 @@ public class PublicKeys extends ListActivity {
         // assign the list adapter
         setListAdapter(myAdapter);
 
+    }
+    public void alertMessage2(final String listItemName) {
+        SP = this.getSharedPreferences("KeyPair", MODE_PRIVATE);
+        SPE= SP.edit();
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // Yes button clicked
+                        SPE.remove("PublicKey"+listItemName);
+                        SPE.remove("PrivateKey"+listItemName);
+                        SPE.apply();
+                        refresh();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // No button clicked
+                        // do nothing
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Delete Key?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 }
