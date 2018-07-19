@@ -55,7 +55,7 @@
         android:layout_width="120dp"
         android:layout_height="55dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="60dp"
         android:layout_marginLeft="84dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitCenter"

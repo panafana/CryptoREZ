@@ -7,7 +7,7 @@
     <string name="decrypt">Decrypt</string>
     <string name="empty">Empty</string>
     <string name="action_clear">Clear</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main2">Send Message</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>

@@ -111,7 +111,12 @@ public class PublicMessages  extends ListActivity {
                 String tempmess = mess.get(i);
                 byte[] encryptedBytes = new byte[0];
                 byte[] encryptedBytestemp = tempmess.getBytes();
-                encryptedBytes = org.bouncycastle.util.encoders.Base64.decode(encryptedBytestemp);
+                try{
+                    encryptedBytes = org.bouncycastle.util.encoders.Base64.decode(encryptedBytestemp);
+
+                }catch (ArrayIndexOutOfBoundsException e){
+                    e.printStackTrace();
+                }
                 byte[] decryptedBytes = new byte[0];
                 Cipher cipher1 = null;
 
