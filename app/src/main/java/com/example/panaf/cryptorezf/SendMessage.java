@@ -55,91 +55,93 @@ public class SendMessage extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
-                String msg1= message.getText().toString();
+                String msg1 = message.getText().toString();
                 PublicKey publicKey = null;
 
-                Cipher cipher = null;
-                String encrypted = null;
-                KeyGenerator keyz = new KeyGenerator(context);
-                PrivateKey privateKey=keyz.getPrivateKey(myprivKeyName);
-                System.out.println("priv key name: "+myprivKeyName);
-                byte[] sigBytes = Base64.decode(pubKeyStr);
-                X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(sigBytes);
+                if (!msg1.equals("")) {
+
+                    Cipher cipher = null;
+                    String encrypted = null;
+                    KeyGenerator keyz = new KeyGenerator(context);
+                    PrivateKey privateKey = keyz.getPrivateKey(myprivKeyName);
+                    System.out.println("priv key name: " + myprivKeyName);
+                    byte[] sigBytes = Base64.decode(pubKeyStr);
+                    X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(sigBytes);
 
 
-                KeyFactory keyFact = null;
-                try {
-                    keyFact = KeyFactory.getInstance("RSA", "BC");
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchProviderException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    publicKey = keyFact.generatePublic(x509KeySpec);
-                } catch (InvalidKeySpecException e) {
-                    e.printStackTrace();
-                }
+                    KeyFactory keyFact = null;
+                    try {
+                        keyFact = KeyFactory.getInstance("RSA", "BC");
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchProviderException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        publicKey = keyFact.generatePublic(x509KeySpec);
+                    } catch (InvalidKeySpecException e) {
+                        e.printStackTrace();
+                    }
 
 
-                try {
-                    cipher = Cipher.getInstance("RSA/None/PKCS1Padding");
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchPaddingException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-                } catch (InvalidKeyException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        cipher = Cipher.getInstance("RSA/None/PKCS1Padding");
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchPaddingException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    }
 
-                byte[] encryptedBytes3 = new byte[0];
+                    byte[] encryptedBytes3 = new byte[0];
 
-                try {
-                    encryptedBytes3 = cipher.doFinal(msg1.getBytes());
-                } catch (IllegalBlockSizeException e) {
-                    e.printStackTrace();
-                } catch (BadPaddingException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        encryptedBytes3 = cipher.doFinal(msg1.getBytes());
+                    } catch (IllegalBlockSizeException e) {
+                        e.printStackTrace();
+                    } catch (BadPaddingException e) {
+                        e.printStackTrace();
+                    }
 
-                //Encode to Base64
-                byte[] encryptedBytes2 = Base64.encode(encryptedBytes3);
-                encrypted = new String(encryptedBytes2);
+                    //Encode to Base64
+                    byte[] encryptedBytes2 = Base64.encode(encryptedBytes3);
+                    encrypted = new String(encryptedBytes2);
 
-                //String decryptedStr = new String(decrypted);
+                    //String decryptedStr = new String(decrypted);
 
-                //SIGN
-                Signature privateSignature = null;
-                try {
-                    privateSignature = Signature.getInstance("SHA1withRSA");
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    privateSignature.initSign(privateKey);
-                } catch (InvalidKeyException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    privateSignature.update(msg1.getBytes(UTF_8));
-                } catch (SignatureException e) {
-                    e.printStackTrace();
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
+                    //SIGN
+                    Signature privateSignature = null;
+                    try {
+                        privateSignature = Signature.getInstance("SHA1withRSA");
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        privateSignature.initSign(privateKey);
+                    } catch (InvalidKeyException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        privateSignature.update(msg1.getBytes(UTF_8));
+                    } catch (SignatureException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
 
-                byte[] signature = new byte[0];
-                try {
-                    signature = privateSignature.sign();
-                } catch (SignatureException e) {
-                    e.printStackTrace();
-                }
+                    byte[] signature = new byte[0];
+                    try {
+                        signature = privateSignature.sign();
+                    } catch (SignatureException e) {
+                        e.printStackTrace();
+                    }
 
-                byte[] signBytes2 = Base64.encode(signature);
-                String signString = new String(signBytes2);
+                    byte[] signBytes2 = Base64.encode(signature);
+                    String signString = new String(signBytes2);
 
                 /*
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
@@ -148,11 +150,13 @@ public class SendMessage extends AppCompatActivity {
                 Toast.makeText(context, "Public Key Copied", Toast.LENGTH_LONG).show();
                 */
 
-                String method = "register";
-                BackgroundTask backgroundTask = new BackgroundTask(context);
-                backgroundTask.execute(method, encrypted, signString);
-               Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(i);
+                    String method = "register";
+                    BackgroundTask backgroundTask = new BackgroundTask(context);
+                    backgroundTask.execute(method, encrypted, signString);
+                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
 

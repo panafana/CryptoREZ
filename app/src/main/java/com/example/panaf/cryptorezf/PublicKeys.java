@@ -74,7 +74,7 @@ public class PublicKeys extends ListActivity {
             public void onClick (View view){
 
                 String contactName = contactname.getText().toString();
-                if(contactName!="") {
+                if(!contactName.equals("")) {
                     keyz.generateKeys(contactName);
                     contactname.setText("");
                     refresh();
