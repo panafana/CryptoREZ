@@ -67,3 +67,5 @@ dependencies {
     implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
 
 }
+
+

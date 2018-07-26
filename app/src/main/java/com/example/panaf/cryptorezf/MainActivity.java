@@ -17,24 +17,27 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import net.glxn.qrgen.android.QRCode;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_QR_SCAN = 101;
     Context context = this;
     String LOGTAG = "tag";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar =  findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         Button next =  findViewById(R.id.next);
         ImageView qr = findViewById(R.id.imageView);
         Button button2 =  findViewById(R.id.button2);
@@ -153,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
         }else if(id== R.id.action_scan){
             Intent i = new Intent(MainActivity.this,QrCodeActivity.class);
             startActivityForResult( i,REQUEST_CODE_QR_SCAN);
+        }else if(id==R.id.key_size){
+            selectKey();
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -234,5 +240,43 @@ public class MainActivity extends AppCompatActivity {
         builder.setMessage("Delete all  Data (Keys,Messages)?")
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    public void selectKey(){
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        CharSequence items[] = new CharSequence[] {"1024 (not recommended, low security)", "2048 (default)", "4096 (Key generation might be slow on low power phones)"};
+        adb.setSingleChoiceItems(items, 1, new DialogInterface.OnClickListener() {
+            @Override
+
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences SP = context.getSharedPreferences("KeySize", MODE_PRIVATE);
+                SharedPreferences.Editor SPE = SP.edit();
+                int temp=0;
+                switch (which) {
+                    case 0:
+                        temp =1024;
+                        SPE.putInt("KeySize",temp);
+                        SPE.commit();
+                        break;
+                    case 1:
+                        temp =2048;
+                        SPE.putInt("KeySize",temp);
+                        SPE.commit();
+                        break;
+                    case 2:
+                        temp =4096;
+                        SPE.putInt("KeySize",temp);
+                        SPE.commit();
+                        break;
+                }
+            }
+        });
+
+        adb.setNegativeButton("Cancel", null);
+        adb.setTitle("Select Key Size");
+        adb.show();
+
+
     }
 }

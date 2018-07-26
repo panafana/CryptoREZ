@@ -160,8 +160,6 @@ public class SendMessage extends AppCompatActivity {
             }
         });
 
-
-
     }
 
 }

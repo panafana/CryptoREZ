@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 public class KeyGenerator extends Activity{
 
     SharedPreferences SP;
+    SharedPreferences SP2;
     SharedPreferences.Editor SPE;
     PublicKey pubKey;
     PrivateKey privKey;
@@ -31,13 +32,15 @@ public class KeyGenerator extends Activity{
     public KeyGenerator(Context context){
         this.context = context;
         SP = context.getSharedPreferences("KeyPair", MODE_PRIVATE);
+        SP2 = context.getSharedPreferences("KeySize", MODE_PRIVATE);
     }
 
     public void generateKeys(String name){
         try {
+            int keysize =SP2.getInt("KeySize",2048);
             KeyPairGenerator generator;
             generator = KeyPairGenerator.getInstance("RSA", "BC");
-            generator.initialize(2048, new SecureRandom());
+            generator.initialize(keysize, new SecureRandom());
             KeyPair pair = generator.generateKeyPair();
             pubKey = pair.getPublic();
             privKey = pair.getPrivate();
