@@ -51,7 +51,7 @@ public class KeyGenerator extends Activity{
             SPE = SP.edit();
             SPE.putString("PublicKey"+name, pubKeyStr);
             SPE.putString("PrivateKey"+name, privKeyStr);
-            SPE.commit();
+            SPE.apply();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (NoSuchProviderException e) {
