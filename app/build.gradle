@@ -36,18 +36,17 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     /*
-                        compile project(':lib')
-                        compile files('src/main/java/com/example/panafana/cryptonew/bcprov-jdk16-138.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-codec-1.9.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-logging-1.2.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/httpclient-4.5.3.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/httpcore-4.4.6.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/httpmime-4.5.3.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-4.1.0.jar')
-                        compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-platform-4.1.0.jar')
-                        */
-
-    implementation files('libs/junit-4.12.jar')
+                            compile project(':lib')
+                            compile files('src/main/java/com/example/panafana/cryptonew/bcprov-jdk16-138.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-codec-1.9.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/commons-logging-1.2.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/httpclient-4.5.3.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/httpcore-4.4.6.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/httpmime-4.5.3.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-4.1.0.jar')
+                            compile files('src/main/java/com/example/panafana/cryptonew/libs/jna-platform-4.1.0.jar')
+                            */
+    //implementation files('libs/junit-4.12.jar')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.mcxiaoke.volley:library-aar:1.0.0'
@@ -65,7 +64,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.github.blikoon:QRCodeScanner:0.1.2'
-
+    implementation files('src/main/java/com/example/panaf/cryptorezf/libs/junit-4.12.jar')
 }
 
 

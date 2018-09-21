@@ -12,8 +12,8 @@
         android:id="@+id/send"
         android:layout_width="88dp"
         android:layout_height="51dp"
-        android:layout_marginBottom="136dp"
-        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="208dp"
+        android:layout_marginEnd="148dp"
         android:text="Send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -23,14 +23,14 @@
         android:id="@+id/textContainer"
         android:layout_width="390dp"
         android:layout_height="186dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="260dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:counterEnabled="true"
         app:counterTextAppearance="@style/CounterText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
 
         >
@@ -59,13 +59,13 @@
         android:id="@+id/mykey"
         android:layout_width="221dp"
         android:layout_height="21dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/textContainer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -79,8 +79,8 @@
         android:text=""
         app:layout_constraintBottom_toTopOf="@+id/mykey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.835" />
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

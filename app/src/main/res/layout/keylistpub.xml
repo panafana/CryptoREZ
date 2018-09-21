@@ -40,16 +40,15 @@
 
     <Button
         android:id="@+id/generate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="98dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="40dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Generate new"
+        android:text="Generate\n new"
         app:layout_constraintBottom_toTopOf="@+id/list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toEndOf="@+id/contactname"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -59,14 +58,13 @@
         android:layout_width="257dp"
         android:layout_height="42dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text=""
         android:hint="Enter Key Name"
+        android:text=""
         app:layout_constraintBottom_toTopOf="@+id/mainText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
+        app:layout_constraintVertical_bias="0.615" />
 
 
 </android.support.constraint.ConstraintLayout>
