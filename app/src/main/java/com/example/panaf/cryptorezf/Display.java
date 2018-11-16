@@ -74,7 +74,7 @@ public class Display extends AppCompatActivity {
                 ArrayList<String> ids = new ArrayList<>(set4);
                  id = new String(ids.get(ids.size() - 1));
             }else {
-                 id = "-1";
+                 id = "0";
             }
 
             try {
